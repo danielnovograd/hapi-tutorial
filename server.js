@@ -1,9 +1,23 @@
 'use strict'
 
 const Hapi = require('hapi');
+const inert = require('inert')
 
 //Create a server with a host and port
 const server = new Hapi.Server();
+
+//inert used to serve static page
+server.register(inert, err => {
+  if (err) throw err;
+
+  server.route({
+    method: 'GET',
+    path: '/hello',
+    handler: function(request, reply) {
+      reply.file('./public/hello.html');
+    }
+  });
+});
 
 server.connection({port: 3000});
 
@@ -23,6 +37,8 @@ server.route({
     reply('Hello, ' + encodeURIComponent(request.params.name) + '!')
   }
 });
+
+
 
 //Start the server
 server.start((err) => {
