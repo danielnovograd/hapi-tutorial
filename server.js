@@ -1,7 +1,9 @@
 'use strict'
 
 const Hapi = require('hapi');
-const inert = require('inert')
+const inert = require('inert');
+const Bcrypt = require('bcrypt');
+const Basic = require('hapi-auth-basic');
 
 //Create a server with a host and port
 const server = new Hapi.Server();
